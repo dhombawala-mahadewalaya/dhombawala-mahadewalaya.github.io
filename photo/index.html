@@ -1,17 +1,89 @@
-<!doctype html><html lang="si"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>ඡායාරූප | මැදමල්අල්ලි මහා දේවාලය</title><link rel="stylesheet" href="../index.css"></head><body><nav class="navbar" id="navbar"><div class="nav-inner">
+<!doctype html><html lang="si"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"><title>ඡායාරූප | මැදමල්අල්ලි මහා දේවාලය</title><link rel="stylesheet" href="../index.css">
+<style>
+  .gallery-card{display:block;overflow:visible;background:transparent;border:none;box-shadow:none;margin:0;padding:0}
+  .gallery-card img{width:100%;height:auto;object-fit:contain;display:block;border:none;box-shadow:none}
+.gallery{gap:2px}
+
+  /* Mobile usability only — existing gallery appearance/fit is unchanged */
+  @media (max-width: 700px){
+    html,body{width:100%;max-width:100%;overflow-x:hidden}
+    .section{width:100%;max-width:100%;margin-left:0;margin-right:0}
+    .gallery{width:100%;max-width:100%;gap:2px}
+    .gallery-card{min-width:0}
+    .gallery-card img{max-width:100%;height:auto}
+    .page-hero{max-width:100%;overflow-wrap:anywhere}
+  }
+</style>
+</head><body><nav class="navbar" id="navbar"><div class="nav-inner">
 <a href="../" class="logo"><span class="logo-mark">ॐ</span><span style="color:inherit">දොඹවල තුන්බෝ පිහිටි <em style="color:var(--red);font-style:normal">මැදමල්අල්ලි මහා දේවාලය</em></span></a>
 <div class="nav-links" id="navLinks"><a href="../" class="">මුල් පිටුව</a><a href="../video/" class="">වීඩියෝ</a><a href="./" class="active">ඡායාරූප</a><a href="../blogs/" class="">බ්ලොග්</a><a href="../contact/" class="">සම්බන්ධතා</a></div>
 <a href="../contact/" class="nav-cta">අප අමතන්න</a><button class="nav-toggle" id="navToggle" aria-expanded="false">☰</button></div></nav>
 <header class="page-hero reveal"><span class="eyebrow">දර්ශන ගැලරිය</span><h1>ඡායාරූප එකතුව</h1><p>දේවාලයේ සුන්දර දර්ශන සහ මතක සටහන් එකම ස්ථානයකින් නරඹන්න.</p></header>
-<main class="section" style="padding-top:15px"><div class="gallery">
-<figure class="gallery-card"><img src="../Gemini_Generated_Image_elify4elify4elif.jpg" alt="දේවාලයේ ඡායාරූපය 1" loading="lazy"></figure><figure class="gallery-card"><img src="../Gemini_Generated_Image_elify4elify4elif.jpg" alt="දේවාලයේ ඡායාරූපය 2" loading="lazy"></figure><figure class="gallery-card"><img src="../Gemini_Generated_Image_elify4elify4elif.jpg" alt="දේවාලයේ ඡායාරූපය 3" loading="lazy"></figure><figure class="gallery-card"><img src="../Gemini_Generated_Image_elify4elify4elif.jpg" alt="දේවාලයේ ඡායාරූපය 4" loading="lazy"></figure><figure class="gallery-card"><img src="../Gemini_Generated_Image_elify4elify4elif.jpg" alt="දේවාලයේ ඡායාරූපය 5" loading="lazy"></figure><figure class="gallery-card"><img src="../Gemini_Generated_Image_elify4elify4elif.jpg" alt="දේවාලයේ ඡායාරූපය 6" loading="lazy"></figure><figure class="gallery-card"><img src="../Gemini_Generated_Image_elify4elify4elif.jpg" alt="දේවාලයේ ඡායාරූපය 7" loading="lazy"></figure><figure class="gallery-card"><img src="../Gemini_Generated_Image_elify4elify4elif.jpg" alt="දේවාලයේ ඡායාරූපය 8" loading="lazy"></figure>
-</div></main><div class="lightbox" id="lightbox"><button id="close">×</button><img id="lightImg" alt=""></div>
+<main class="section" style="padding-top:15px">
+<div class="gallery" id="gallery"></div>
+</main><div class="lightbox" id="lightbox"><button id="close">×</button><img id="lightImg" alt=""></div>
 <footer><div class="footer-inner"><p class="footer-title">දොඹවල තුන්බෝ පිහිටි මැදමල්අල්ලි මහා දේවාලය</p><p>© 2026 මැදමල්අල්ලි මහා දේවාලය · සියලුම හිමිකම් ඇවිරිණි.</p></div></footer><a class="whatsapp" href="https://wa.me/" aria-label="WhatsApp">◔</a><div class="mobile-bottom"><a href="../" class=""><b>⌂</b>මුල් පිටුව</a><a href="../video/" class=""><b>▶</b>වීඩියෝ</a><a href="./" class="active"><b>▣</b>ඡායාරූප</a><a href="../blogs/" class=""><b>✦</b>බ්ලොග්</a><a href="../contact/" class=""><b>⌖</b>සම්බන්ධතා</a></div><script>
 const nav=document.getElementById('navbar'),toggle=document.getElementById('navToggle');
 toggle.addEventListener('click',()=>{const open=nav.classList.toggle('menu-open');toggle.setAttribute('aria-expanded',open)});
 document.getElementById('navLinks').addEventListener('click',e=>{if(e.target.tagName==='A')nav.classList.remove('menu-open')});
 
-const lb=document.getElementById('lightbox'), li=document.getElementById('lightImg');
-document.querySelectorAll('.gallery-card img').forEach(img=>img.addEventListener('click',()=>{li.src=img.src;li.alt=img.alt;lb.classList.add('open')}));
-document.getElementById('close').onclick=()=>lb.classList.remove('open');lb.onclick=e=>{if(e.target===lb)lb.classList.remove('open')};
+// ============================================================
+   // 🖼️ GALLERY IMAGES
+   // ------------------------------------------------------------
+   // Add new photos here.
+   // IMPORTANT: Put the image file in the SAME FOLDER as this
+   // index(10).html file, then add its filename below.
+   //
+   // Example:
+   // { file: "my-new-photo.jpg", alt: "නව ඡායාරූපය" },
+   // ============================================================
+   const galleryImages = [
+     { file: "01.png",  alt: "දේවාලයේ ඡායාරූපය 1" },
+     { file: "02.png",  alt: "දේවාලයේ ඡායාරූපය 2" },
+     { file: "03.png",  alt: "දේවාලයේ ඡායාරූපය 3" },
+     { file: "04.png",  alt: "දේවාලයේ ඡායාරූපය 4" },
+     { file: "05.png",  alt: "දේවාලයේ ඡායාරූපය 5" },
+     { file: "06.png",  alt: "දේවාලයේ ඡායාරූපය 6" },
+     { file: "07.png",  alt: "දේවාලයේ ඡායාරූපය 7" },
+     { file: "08.png",  alt: "දේවාලයේ ඡායාරූපය 8" }
+
+     // Add more images below:
+     // { file: "photo-07.jpg", alt: "දේවාලයේ ඡායාරූපය 7" },
+     // { file: "photo-08.png", alt: "දේවාලයේ ඡායාරූපය 8" },
+   ];
+
+   const gallery = document.getElementById('gallery');
+   const lb = document.getElementById('lightbox');
+   const li = document.getElementById('lightImg');
+
+   galleryImages.forEach((item, index) => {
+     const figure = document.createElement('figure');
+     figure.className = 'gallery-card';
+
+     const img = document.createElement('img');
+     // No ../ here — images are loaded from the same folder as this HTML.
+     img.src = item.file;
+     img.alt = item.alt || `දේවාලයේ ඡායාරූපය ${index + 1}`;
+     img.loading = 'lazy';
+
+     img.addEventListener('click', () => {
+       li.src = img.src;
+       li.alt = img.alt;
+       lb.classList.add('open');
+     });
+
+     figure.appendChild(img);
+     gallery.appendChild(figure);
+   });
+
+   document.getElementById('close').onclick = () => lb.classList.remove('open');
+
+   lb.onclick = e => {
+     if (e.target === lb) lb.classList.remove('open');
+   };
+
+   // ESC key closes the full-size photo viewer.
+   document.addEventListener('keydown', e => {
+     if (e.key === 'Escape') lb.classList.remove('open');
+   });
 </script></body></html>
