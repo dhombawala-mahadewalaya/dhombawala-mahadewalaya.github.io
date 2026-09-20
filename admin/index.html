@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="si">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>පරිපාලක පුවරුව | මැදමල්අල්ලි මහා දේවාලය</title>
+  <style>
+    :root{
+      --bg:#EEF3F9; --card:#fff; --ink:#1B2430; --muted:#5B6878; --line:#D6DFEA;
+      --red:#A3201A; --gold:#B07D0A; --ok:#176B3A; --okbg:#EAF7EE; --okline:#B9E4C8;
+      --bad:#8C1D18; --badbg:#FDECEA; --blue:#1F5FA8; --soft:#E3EEFB;
+      --r:12px;
+    }
+    *{box-sizing:border-box}
+    [hidden]{display:none!important}
+    html{-webkit-text-size-adjust:100%}
+    body{margin:0;background:var(--bg);color:var(--ink);
+      font:16px/1.7 "Noto Sans Sinhala","Iskoola Pota","Nirmala UI","Segoe UI",system-ui,sans-serif}
+    h1,h2,h3,p{margin:0}
+    a{color:var(--blue)}
+    button,input,select,textarea{font:inherit;color:inherit}
+    :focus-visible{outline:3px solid #7FB0F0;outline-offset:2px}
+    .wrap{max-width:980px;margin:0 auto;padding:0 16px}
+
+    /* top bar */
+    .top{background:#fff;border-bottom:3px solid var(--red);position:sticky;top:0;z-index:20}
+    .top-in{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:10px;padding-bottom:10px}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}
+    .om{flex:none;width:40px;height:40px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-size:1.3rem;line-height:1}
+    .brand strong{display:block;font-size:1.05rem;line-height:1.3}
+    .brand small{display:block;color:var(--muted);font-size:.8rem;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .top-r{display:flex;align-items:center;gap:10px;flex:none}
+    .top-r img{width:34px;height:34px;border-radius:50%;object-fit:cover;background:var(--soft)}
+    .top-r span{max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700;font-size:.9rem}
+    @media (max-width:560px){.top-r span{display:none}.brand small{display:none}}
+
+    /* buttons */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:42px;padding:8px 16px;border-radius:10px;
+      border:1px solid var(--line);background:#fff;font-weight:700;cursor:pointer;text-decoration:none;color:var(--ink)}
+    .btn:hover{background:#F6F9FD}
+    .btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+    .btn.primary:hover{background:#8C1B16}
+    .btn.wa{background:#1FA855;border-color:#1FA855;color:#fff}
+    .btn.wa:hover{background:#178A45}
+    .btn.danger{color:var(--bad);border-color:#EBB8B4}
+    .btn.danger:hover{background:var(--badbg)}
+    .btn.sm{min-height:36px;padding:4px 12px;font-size:.88rem}
+    .btn:disabled{opacity:.55;cursor:default}
+
+    /* panels */
+    .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+    .center{max-width:520px;margin:48px auto;text-align:center}
+    .center h1{font-size:1.4rem;margin-bottom:8px}
+    .center p{color:var(--muted);margin-bottom:16px}
+    .center .btn{margin:4px}
+    code.uid{display:block;margin:12px 0;padding:10px 12px;border-radius:10px;background:var(--soft);word-break:break-all;font:600 .9rem/1.5 ui-monospace,Consolas,monospace;user-select:all}
+    .msg{margin:14px 0;padding:10px 12px;border-radius:10px;background:var(--badbg);color:var(--bad);font-weight:700;white-space:pre-line;text-align:left}
+
+    /* tabs */
+    .tabs{display:flex;gap:4px;margin:20px 0 16px;border-bottom:1px solid var(--line);overflow-x:auto}
+    .tab{position:relative;padding:10px 16px;border:0;background:none;font-weight:800;color:var(--muted);cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-1px}
+    .tab[aria-selected="true"]{color:var(--red);border-bottom-color:var(--red)}
+    .count{display:inline-block;min-width:22px;padding:0 6px;margin-left:6px;border-radius:999px;background:var(--red);color:#fff;font-size:.75rem;line-height:22px;text-align:center}
+
+    /* summary */
+    .sum h2{font-size:1rem;color:var(--muted);margin:0 0 10px;font-weight:800}
+    .sum .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+    .stat{display:block;width:100%;text-align:left;padding:14px 16px;border:1px solid var(--line);border-radius:var(--r);background:#fff;cursor:pointer}
+    .stat:hover{border-color:#B7C7DA}
+    .stat b{display:block;font-size:1.9rem;line-height:1.2}
+    .stat span{color:var(--muted);font-size:.9rem}
+    .stat.s-new b{color:var(--red)} .stat.s-progress b{color:var(--gold)} .stat.s-done b{color:var(--ok)}
+
+    /* toolbar */
+    .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+    .bar input[type=search]{flex:1 1 220px;min-height:42px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#fff}
+    .chips{display:flex;flex-wrap:wrap;gap:6px}
+    .chip{min-height:36px;padding:4px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:700;font-size:.9rem;cursor:pointer}
+    .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+    .total{color:var(--muted);font-size:.9rem;margin:0 0 10px}
+
+    /* requests */
+    .list{display:grid;gap:12px}
+    .req{background:#fff;border:1px solid var(--line);border-left:5px solid var(--red);border-radius:var(--r);padding:14px 16px}
+    .req.st-progress{border-left-color:var(--gold)}
+    .req.st-done{border-left-color:var(--ok)}
+    .req-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+    .req-head strong{font-size:1.05rem;line-height:1.4}
+    .pill{flex:none;padding:2px 10px;border-radius:999px;font-size:.78rem;font-weight:800;background:var(--badbg);color:var(--bad)}
+    .pill.st-progress{background:#FFF4D6;color:#7A5A00}
+    .pill.st-done{background:var(--okbg);color:var(--ok)}
+    .meta{display:flex;flex-wrap:wrap;gap:2px 14px;color:var(--muted);font-size:.9rem;margin-top:2px}
+    .note{margin-top:8px;white-space:pre-line}
+    .reply-box{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+    .reply-box label{display:block;font-weight:800;font-size:.9rem;margin-bottom:4px}
+    textarea,.reply-box select,.f input:not([type=checkbox]){width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff}
+    textarea{resize:vertical;min-height:84px}
+    .sent{margin-top:4px;font-size:.82rem;color:var(--ok);font-weight:700}
+    .acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+    .acts select{width:auto;min-height:42px}
+    .acts .grow{flex:1}
+
+    /* members */
+    .mem{display:flex;gap:14px;align-items:center;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+    .av,.dot{width:46px;height:46px;border-radius:50%;object-fit:cover;background:var(--soft);flex:none}
+    .mem-info{flex:1 1 220px;min-width:0}
+    .mem-name{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+    .mem-name strong{font-size:1.02rem;color:var(--red)}
+    .mem-act{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .mem-act select{min-height:36px;padding:2px 8px;border:1px solid var(--line);border-radius:10px;background:#fff;font-weight:700}
+    .hid{color:var(--muted);font-size:.82rem}
+
+    /* badges */
+    .tier{display:inline-flex;align-items:center;gap:6px;padding:1px 10px;border-radius:999px;font-size:.75rem;font-weight:900;border:1px solid transparent;line-height:1.7}
+    .tier::before{content:"";width:9px;height:9px;flex:none;border-radius:50%}
+    .tier-silver{background:#F1F3F6;color:#485261;border-color:#C7CFD9}
+    .tier-silver::before{background:linear-gradient(135deg,#fff,#98A3B0)}
+    .tier-gold{background:#FFF6D8;color:#7A5A00;border-color:#E8C95F}
+    .tier-gold::before{background:linear-gradient(135deg,#FFF3B0,#D2A015)}
+    .tier-diamond{background:#E6F7FF;color:#0B5C7A;border-color:#8AD6F2}
+    .tier-diamond::before{border-radius:2px;transform:rotate(45deg);background:linear-gradient(135deg,#fff,#36C0EF)}
+
+    /* dialog */
+    dialog{border:0;border-radius:var(--r);padding:0;width:min(440px,calc(100% - 24px));box-shadow:0 20px 60px rgba(20,30,50,.35)}
+    dialog::backdrop{background:rgba(20,30,50,.45)}
+    dialog form{padding:20px}
+    dialog h2{font-size:1.2rem;margin-bottom:8px}
+    .f label{display:block;margin:12px 0 4px;font-weight:800;font-size:.9rem}
+    .f label.check{display:flex;gap:8px;align-items:center;font-weight:500}
+    .f .row{display:flex;gap:8px;justify-content:flex-end;margin-top:18px}
+
+    /* toast */
+    .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;max-width:min(92vw,460px);padding:11px 16px;border-radius:12px;
+      background:var(--ink);color:#fff;font-weight:700;white-space:pre-line;box-shadow:0 8px 30px rgba(0,0,0,.3)}
+    .toast.bad{background:var(--bad)}
+    .empty{padding:28px 12px;text-align:center;color:var(--muted)}
+    footer{padding:28px 16px;text-align:center;color:var(--muted);font-size:.85rem}
+    @media (prefers-reduced-motion:no-preference){.tab,.btn,.stat{transition:background .15s,border-color .15s,color .15s}}
+  </style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <div class="brand">
+      <span class="om">ॐ</span>
+      <div><strong>පරිපාලක පුවරුව</strong><small>මැදමල්අල්ලි මහා දේවාලය</small></div>
+    </div>
+    <div class="top-r" id="top-user" hidden>
+      <img id="u-img" alt="" referrerpolicy="no-referrer" hidden>
+      <span id="u-name"></span>
+      <button class="btn sm" id="logout" type="button">පිටවන්න</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Signed out -->
+  <section class="panel center" id="s-login" hidden>
+    <h1>පරිපාලකයින් සඳහා පමණි</h1>
+    <p>පරිපාලක ගිණුමෙන් Google මගින් පිවිසෙන්න.</p>
+    <button class="btn primary" id="login" type="button">Google මගින් පිවිසෙන්න</button>
+    <p id="login-msg" class="msg" role="alert" hidden></p>
+  </section>
+
+  <!-- Checking access -->
+  <section class="panel center" id="s-check" hidden>
+    <p style="margin:0">අවසරය පරීක්ෂා කරමින්...</p>
+  </section>
+
+  <!-- Signed in, not an admin -->
+  <section class="panel center" id="s-denied" hidden>
+    <h1>පරිපාලක අවසරය නැත</h1>
+    <p>Firebase Console හි <b>default</b> database එකේ <b>admins</b> collection එකට පහත UID එක Document ID ලෙස එක් කරන්න (field එකක් ලෙස <b>role</b> = <b>admin</b>). ඉන්පසු පිටුව refresh කරන්න.</p>
+    <code class="uid" id="d-uid"></code>
+    <button class="btn" id="copy-uid" type="button">UID පිටපත් කරන්න</button>
+    <button class="btn" id="logout2" type="button">වෙනත් ගිණුමකින් පිවිසෙන්න</button>
+  </section>
+
+  <!-- Admin app -->
+  <section id="s-app" hidden>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="t-summary" type="button" aria-selected="true">සාරාංශය</button>
+      <button class="tab" role="tab" id="t-requests" type="button" aria-selected="false">ඉල්ලීම්<span class="count" id="tab-new" hidden>0</span></button>
+      <button class="tab" role="tab" id="t-members" type="button" aria-selected="false">සාමාජිකයින්</button>
+      <span style="flex:1"></span>
+      <button class="btn sm" id="refresh" type="button" style="align-self:center;margin-bottom:4px">නැවත පූරණය</button>
+    </div>
+
+    <p id="app-msg" class="msg" role="alert" hidden></p>
+
+    <!-- Summary -->
+    <div id="p-summary" class="sum">
+      <h2>ඉල්ලීම්</h2>
+      <div class="grid">
+        <button class="stat s-new" id="go-new" type="button"><b id="n-new">0</b><span>නව ඉල්ලීම්</span></button>
+        <button class="stat s-progress" id="go-progress" type="button"><b id="n-progress">0</b><span>සකසමින්</span></button>
+        <button class="stat s-done" id="go-done" type="button"><b id="n-done">0</b><span>අවසන්</span></button>
+      </div>
+      <h2>සාමාජිකයින්</h2>
+      <div class="grid">
+        <button class="stat" id="go-all" type="button"><b id="n-members">0</b><span>මුළු සාමාජිකයින්</span></button>
+        <button class="stat" id="go-diamond" type="button"><b id="n-diamond">0</b><span><span class="tier tier-diamond">Diamond</span></span></button>
+        <button class="stat" id="go-gold" type="button"><b id="n-gold">0</b><span><span class="tier tier-gold">Gold</span></span></button>
+        <button class="stat" id="go-silver" type="button"><b id="n-silver">0</b><span><span class="tier tier-silver">Silver</span></span></button>
+      </div>
+    </div>
+
+    <!-- Requests -->
+    <div id="p-requests" hidden>
+      <div class="bar">
+        <input type="search" id="req-q" placeholder="සොයන්න (නම, දුරකථනය, සේවාව)" aria-label="ඉල්ලීම් සොයන්න">
+        <div class="chips" role="group" aria-label="තත්ත්වය">
+          <button class="chip" data-rf="all" aria-pressed="true" type="button">සියල්ල</button>
+          <button class="chip" data-rf="new" aria-pressed="false" type="button">නව</button>
+          <button class="chip" data-rf="progress" aria-pressed="false" type="button">සකසමින්</button>
+          <button class="chip" data-rf="done" aria-pressed="false" type="button">අවසන්</button>
+        </div>
+      </div>
+      <p class="total" id="req-total"></p>
+      <div class="list" id="req-list"></div>
+    </div>
+
+    <!-- Members -->
+    <div id="p-members" hidden>
+      <div class="bar">
+        <input type="search" id="mem-q" placeholder="සොයන්න (නම, දුරකථනය, ගම)" aria-label="සාමාජිකයින් සොයන්න">
+        <div class="chips" role="group" aria-label="බැජ්">
+          <button class="chip" data-mf="all" aria-pressed="true" type="button">සියල්ල</button>
+          <button class="chip" data-mf="diamond" aria-pressed="false" type="button">Diamond</button>
+          <button class="chip" data-mf="gold" aria-pressed="false" type="button">Gold</button>
+          <button class="chip" data-mf="silver" aria-pressed="false" type="button">Silver</button>
+          <button class="chip" data-mf="none" aria-pressed="false" type="button">බැජ් නැති</button>
+        </div>
+      </div>
+      <p class="total" id="mem-total"></p>
+      <div class="list" id="mem-list"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>© 2026 මැදමල්අල්ලි මහා දේවාලය · පරිපාලක පුවරුව</footer>
+
+<!-- Edit member dialog -->
+<dialog id="dlg">
+  <form id="edit-form" class="f">
+    <h2>සාමාජික තොරතුරු සංස්කරණය</h2>
+    <label for="e-name">නම</label>
+    <input id="e-name" required maxlength="80">
+    <label for="e-phone">දුරකථන අංකය</label>
+    <input id="e-phone" type="tel" required maxlength="20">
+    <label for="e-town">ගම / නගරය</label>
+    <input id="e-town" required maxlength="80">
+    <label class="check"><input id="e-list" type="checkbox"> සාමාජික ලැයිස්තුවේ පෙන්වන්න</label>
+    <p id="e-msg" class="msg" role="alert" hidden></p>
+    <div class="row">
+      <button class="btn" id="e-cancel" type="button">අවලංගු කරන්න</button>
+      <button class="btn primary" id="e-save" type="submit">සුරකින්න</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script type="module">
+import {
+  auth, db, provider, configured,
+  signInWithPopup, signInWithRedirect, signOut, onAuthStateChanged, getRedirectResult,
+  collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc,
+  query, orderBy, limit, serverTimestamp
+} from "../firebase.js";
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+const el = (tag, text, props) => {
+  const e = document.createElement(tag);
+  if (text != null) e.textContent = text;
+  if (props) Object.assign(e, props);
+  return e;
+};
+const clean = v => (v == null ? '' : String(v)).trim();
+const STATUS = { new: 'නව', progress: 'සකසමින්', done: 'අවසන්' };
+const TIERS = { silver: 'Silver', gold: 'Gold', diamond: 'Diamond' };
+
+const fmtDate = (t, withTime) => {
+  if (!t || !t.toDate) return '';
+  const d = t.toDate();
+  try {
+    return withTime
+      ? d.toLocaleString('si-LK', { dateStyle: 'medium', timeStyle: 'short' })
+      : d.toLocaleDateString('si-LK');
+  } catch (e) { return d.toLocaleString(); }
+};
+
+// 07XXXXXXXX / +947XXXXXXXX / 947XXXXXXXX  ->  947XXXXXXXX (for wa.me)
+const waNumber = p => {
+  let d = String(p || '').replace(/\D/g, '');
+  if (d.startsWith('00')) d = d.slice(2);
+  if (d.startsWith('0')) d = '94' + d.slice(1);
+  return d;
+};
+const waLink = (phone, text) =>
+  'https://wa.me/' + waNumber(phone) + (text ? '?text=' + encodeURIComponent(text) : '');
+
+const tierBadge = t => TIERS[t] ? el('span', TIERS[t], { className: 'tier tier-' + t }) : null;
+
+let toastTimer;
+const flash = (text, bad) => {
+  const b = $('toast');
+  b.textContent = text;
+  b.className = 'toast' + (bad ? ' bad' : '');
+  b.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { b.hidden = true; }, bad ? 7000 : 2600);
+};
+
+const why = e => {
+  const code = (e && e.code) || '';
+  const text = (e && e.message) || String(e);
+  let hint = '';
+  if (code === 'permission-denied') hint = 'නව firestore.rules Firebase Console හි Publish කර ඇත්දැයි බලන්න.';
+  else if (code === 'unavailable' || /offline/i.test(text)) hint = 'අන්තර්ජාල සම්බන්ධතාව / Firestore database එක පරීක්ෂා කරන්න.';
+  return (hint ? hint + '\n' : '') + '(' + (code || text) + ')';
+};
+
+const avatar = url => {
+  if (!url) return el('span', null, { className: 'dot' });
+  const img = el('img', null, { className: 'av', src: url, alt: '', referrerPolicy: 'no-referrer' });
+  img.onerror = () => img.replaceWith(el('span', null, { className: 'dot' }));
+  return img;
+};
+
+/* ---------- state ---------- */
+let user = null, requests = [], members = [], reqF = 'all', memF = 'all', editing = null;
+
+const show = name => {
+  for (const id of ['s-login', 's-check', 's-denied', 's-app']) $(id).hidden = id !== name;
+  $('top-user').hidden = !user;
+};
+
+const syncChips = (attr, val) =>
+  document.querySelectorAll('[data-' + attr + ']').forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset[attr] === val)));
+
+const tab = name => {
+  for (const t of ['summary', 'requests', 'members']) {
+    $('p-' + t).hidden = t !== name;
+    $('t-' + t).setAttribute('aria-selected', String(t === name));
+  }
+};
+
+/* ---------- data ---------- */
+async function loadRequests() {
+  const s = await getDocs(query(collection(db, 'requests'), orderBy('createdAt', 'desc'), limit(300)));
+  requests = s.docs.map(d => ({ ...d.data(), id: d.id }));
+}
+async function loadMembers() {
+  const s = await getDocs(collection(db, 'members'));
+  members = s.docs.map(d => ({ ...d.data(), id: d.id }))
+    .sort((a, b) => (b.joinedAt?.seconds || 0) - (a.joinedAt?.seconds || 0));
+}
+
+async function loadAll() {
+  const msg = $('app-msg'); msg.hidden = true;
+  const btn = $('refresh'); btn.disabled = true;
+  const [a, b] = await Promise.allSettled([loadRequests(), loadMembers()]);
+  const errs = [];
+  if (a.status === 'rejected') { console.error(a.reason); errs.push('ඉල්ලීම් පූරණය කළ නොහැකි විය\n' + why(a.reason)); }
+  if (b.status === 'rejected') { console.error(b.reason); errs.push('සාමාජිකයින් පූරණය කළ නොහැකි විය\n' + why(b.reason)); }
+  if (errs.length) { msg.textContent = errs.join('\n\n'); msg.hidden = false; }
+  btn.disabled = false;
+  renderSummary(); renderRequests(); renderMembers();
+}
+
+/* ---------- summary ---------- */
+function renderSummary() {
+  const tierCount = k => members.filter(m => (m.tier || '') === k).length;
+  const reqCount = s => requests.filter(r => (r.status || 'new') === s).length;
+  const set = (id, v) => { $(id).textContent = v; };
+  set('n-members', members.length);
+  set('n-diamond', tierCount('diamond')); set('n-gold', tierCount('gold')); set('n-silver', tierCount('silver'));
+  set('n-new', reqCount('new')); set('n-progress', reqCount('progress')); set('n-done', reqCount('done'));
+  set('tab-new', reqCount('new'));
+  $('tab-new').hidden = !reqCount('new');
+}
+
+/* ---------- requests ---------- */
+function requestCard(r) {
+  const card = el('article', null, { className: 'req' });
+  const head = el('div', null, { className: 'req-head' });
+  const pill = el('span');
+  head.append(el('strong', r.type || '—'), pill);
+
+  const meta = el('div', null, { className: 'meta' });
+  meta.append(el('span', r.name || '—'));
+  meta.append(r.phone ? el('a', r.phone, { href: 'tel:' + r.phone }) : el('span', 'දුරකථන අංකයක් නැත'));
+  meta.append(el('span', fmtDate(r.createdAt, true)));
+
+  card.append(head, meta);
+  if (r.note) card.append(el('p', r.note, { className: 'note' }));
+
+  const box = el('div', null, { className: 'reply-box' });
+  const lab = el('label', 'සාමාජිකයාට ප්‍රතිචාරය', { htmlFor: 'rp-' + r.id });
+  const ta = el('textarea', null, { id: 'rp-' + r.id, rows: 3, maxLength: 2000, placeholder: 'සාමාජිකයාට යැවීමට පිළිතුරක් ලියන්න...' });
+  ta.value = r.reply || '';
+  const sent = el('div', null, { className: 'sent' });
+
+  const acts = el('div', null, { className: 'acts' });
+  const sel = el('select', null, { title: 'තත්ත්වය', ariaLabel: 'තත්ත්වය' });
+  for (const k in STATUS) sel.append(new Option(STATUS[k], k, false, k === (r.status || 'new')));
+  const send = el('button', 'ප්‍රතිචාරය යවන්න', { className: 'btn primary', type: 'button' });
+  const wa = el('a', 'WhatsApp', { className: 'btn wa', target: '_blank', rel: 'noopener' });
+  const del = el('button', 'මකන්න', { className: 'btn danger', type: 'button' });
+  wa.hidden = !waNumber(r.phone);
+  const syncWa = () => { wa.href = waLink(r.phone, ta.value.trim()); };
+  syncWa(); ta.addEventListener('input', syncWa);
+  acts.append(sel, send, wa, el('span', null, { className: 'grow' }), del);
+
+  box.append(lab, ta, sent, acts);
+  card.append(box);
+
+  const paint = () => {
+    const st = r.status || 'new';
+    card.className = 'req st-' + st;
+    pill.className = 'pill st-' + st;
+    pill.textContent = STATUS[st] || st;
+    sel.value = st;
+    sent.hidden = !r.reply;
+    sent.textContent = r.reply ? 'ප්‍රතිචාරය යවා ඇත ' + fmtDate(r.repliedAt, true) : '';
+  };
+  paint();
+
+  sel.onchange = async () => {
+    const prev = r.status || 'new';
+    try {
+      await updateDoc(doc(db, 'requests', r.id), { status: sel.value });
+      r.status = sel.value; paint(); renderSummary();
+    } catch (e) { console.error(e); sel.value = prev; flash('තත්ත්වය වෙනස් කළ නොහැකි විය\n' + why(e), true); }
+  };
+
+  send.onclick = async () => {
+    const text = ta.value.trim();
+    if (!text) { flash('ප්‍රතිචාරය ලියන්න.', true); ta.focus(); return; }
+    send.disabled = true; send.textContent = 'යවමින්...';
+    try {
+      const status = sel.value === 'new' ? 'progress' : sel.value;
+      await updateDoc(doc(db, 'requests', r.id), { reply: text, repliedAt: serverTimestamp(), status });
+      r.reply = text; r.status = status;
+      r.repliedAt = { seconds: Math.floor(Date.now() / 1000), toDate: () => new Date() };
+      paint(); renderSummary();
+      flash('ප්‍රතිචාරය යවන ලදී.');
+    } catch (e) { console.error(e); flash('ප්‍රතිචාරය යැවීමට නොහැකි විය\n' + why(e), true); }
+    finally { send.disabled = false; send.textContent = 'ප්‍රතිචාරය යවන්න'; }
+  };
+
+  del.onclick = async () => {
+    if (!confirm('“' + (r.type || '') + '” — ' + (r.name || '') + ' ගේ ඉල්ලීම මකන්නද?')) return;
+    try {
+      await deleteDoc(doc(db, 'requests', r.id));
+      requests = requests.filter(x => x.id !== r.id);
+      card.remove(); renderSummary(); updateReqTotal();
+      flash('මකා දමන ලදී.');
+    } catch (e) { console.error(e); flash('මැකීමට නොහැකි විය\n' + why(e), true); }
+  };
+
+  return card;
+}
+
+const reqRows = () => {
+  const q = $('req-q').value.trim().toLowerCase();
+  return requests.filter(r =>
+    (reqF === 'all' || (r.status || 'new') === reqF) &&
+    (!q || [r.name, r.phone, r.type, r.note].join(' ').toLowerCase().includes(q)));
+};
+const updateReqTotal = () => {
+  const n = reqRows().length;
+  $('req-total').textContent = 'ඉල්ලීම් ' + n + ' ක්';
+  if (!n && !$('req-list').querySelector('.empty')) $('req-list').append(el('p', 'ඉල්ලීම් නැත.', { className: 'empty' }));
+};
+function renderRequests() {
+  const box = $('req-list'); box.replaceChildren();
+  const rows = reqRows();
+  rows.forEach(r => box.append(requestCard(r)));
+  $('req-total').textContent = 'ඉල්ලීම් ' + rows.length + ' ක්';
+  if (!rows.length) box.append(el('p', 'ඉල්ලීම් නැත.', { className: 'empty' }));
+}
+
+/* ---------- members ---------- */
+async function syncDirectory(m) {
+  const ref = doc(db, 'directory', m.id);
+  if (m.showInList !== false && clean(m.name)) {
+    await setDoc(ref, {
+      name: m.name, photoURL: m.photoURL || '',
+      joinedAt: m.joinedAt || serverTimestamp(), tier: m.tier || ''
+    });
+  } else {
+    await deleteDoc(ref);
+  }
+}
+
+async function setTier(m, value) {
+  await updateDoc(doc(db, 'members', m.id), { tier: value });
+  m.tier = value;
+  try {
+    const ref = doc(db, 'directory', m.id);
+    const snap = await getDoc(ref);
+    if (snap.exists()) await updateDoc(ref, { tier: value });
+  } catch (e) {
+    console.error(e);
+    throw Object.assign(new Error('badge saved, directory not updated'), { code: e.code, partial: true });
+  }
+}
+
+function memberRow(m) {
+  const row = el('article', null, { className: 'mem' });
+  const info = el('div', null, { className: 'mem-info' });
+  const nameLine = el('div', null, { className: 'mem-name' });
+  const meta = el('div', null, { className: 'meta' });
+  info.append(nameLine, meta);
+
+  const tierSel = el('select', null, { title: 'බැජය', ariaLabel: 'බැජය' });
+  tierSel.append(new Option('බැජයක් නැත', '', false, !m.tier));
+  for (const k in TIERS) tierSel.append(new Option(TIERS[k], k, false, k === m.tier));
+  const edit = el('button', 'සංස්කරණය', { className: 'btn sm', type: 'button' });
+  const rm = el('button', 'ඉවත් කරන්න', { className: 'btn sm danger', type: 'button' });
+  const act = el('div', null, { className: 'mem-act' });
+  act.append(tierSel, edit, rm);
+
+  const paint = () => {
+    nameLine.replaceChildren(el('strong', m.name || '(නමක් නැත)'));
+    const b = tierBadge(m.tier); if (b) nameLine.append(b);
+    if (m.showInList === false) nameLine.append(el('span', 'ලැයිස්තුවේ නොපෙන්වයි', { className: 'hid' }));
+    meta.replaceChildren();
+    meta.append(m.phone ? el('a', m.phone, { href: 'tel:' + m.phone }) : el('span', '—'));
+    if (m.town) meta.append(el('span', m.town));
+    if (m.email) meta.append(el('span', m.email));
+    const j = fmtDate(m.joinedAt); if (j) meta.append(el('span', 'එක්වූ දිනය ' + j));
+    tierSel.value = m.tier || '';
+  };
+  paint();
+
+  tierSel.onchange = async () => {
+    const prev = m.tier || '', next = tierSel.value;
+    tierSel.disabled = true;
+    try {
+      await setTier(m, next);
+      flash(next ? TIERS[next] + ' බැජය ලබා දෙන ලදී.' : 'බැජය ඉවත් කරන ලදී.');
+    } catch (e) {
+      console.error(e);
+      if (!e.partial) { m.tier = prev; }
+      flash((e.partial ? 'බැජය සුරැකුණි, නමුත් පොදු ලැයිස්තුව යාවත්කාලීන කළ නොහැකි විය\n' : 'බැජය වෙනස් කළ නොහැකි විය\n') + why(e), true);
+    } finally { tierSel.disabled = false; paint(); renderSummary(); }
+  };
+
+  edit.onclick = () => {
+    editing = { m, repaint: paint };
+    $('e-name').value = m.name || ''; $('e-phone').value = m.phone || ''; $('e-town').value = m.town || '';
+    $('e-list').checked = m.showInList !== false;
+    $('e-msg').hidden = true;
+    $('dlg').showModal();
+  };
+
+  rm.onclick = async () => {
+    if (!confirm('“' + (m.name || 'මෙම සාමාජිකයා') + '” සාමාජිකත්වයෙන් ඉවත් කරන්නද?\n\n(Google ගිණුම මැකෙන්නේ නැත. අවශ්‍ය නම් ඔවුන්ට නැවත එක්විය හැක.)')) return;
+    rm.disabled = true;
+    try {
+      await deleteDoc(doc(db, 'directory', m.id));
+      await deleteDoc(doc(db, 'members', m.id));
+      members = members.filter(x => x.id !== m.id);
+      row.remove(); renderSummary(); updateMemTotal();
+      flash('සාමාජිකයා ඉවත් කරන ලදී.');
+    } catch (e) { console.error(e); rm.disabled = false; flash('ඉවත් කිරීමට නොහැකි විය\n' + why(e), true); }
+  };
+
+  row.append(avatar(m.photoURL), info, act);
+  return row;
+}
+
+const memRows = () => {
+  const q = $('mem-q').value.trim().toLowerCase();
+  return members.filter(m =>
+    (memF === 'all' || (memF === 'none' ? !m.tier : m.tier === memF)) &&
+    (!q || [m.name, m.phone, m.town, m.email].join(' ').toLowerCase().includes(q)));
+};
+const updateMemTotal = () => {
+  const n = memRows().length;
+  $('mem-total').textContent = 'සාමාජිකයින් ' + n + ' දෙනෙක්';
+};
+function renderMembers() {
+  const box = $('mem-list'); box.replaceChildren();
+  const rows = memRows();
+  rows.forEach(m => box.append(memberRow(m)));
+  updateMemTotal();
+  if (!rows.length) box.append(el('p', 'සාමාජිකයින් නැත.', { className: 'empty' }));
+}
+
+/* ---------- edit dialog ---------- */
+$('e-cancel').onclick = () => $('dlg').close();
+$('edit-form').onsubmit = async e => {
+  e.preventDefault();
+  if (!editing) return;
+  const { m, repaint } = editing;
+  const patch = {
+    name: clean($('e-name').value), phone: clean($('e-phone').value),
+    town: clean($('e-town').value), showInList: $('e-list').checked
+  };
+  const em = $('e-msg'); em.hidden = true;
+  if (!patch.name || !patch.phone || !patch.town) {
+    em.textContent = 'නම, දුරකථන අංකය සහ ගම / නගරය අනිවාර්යයි.'; em.hidden = false; return;
+  }
+  const btn = $('e-save'); btn.disabled = true; btn.textContent = 'සුරකිමින්...';
+  try {
+    await updateDoc(doc(db, 'members', m.id), patch);
+    Object.assign(m, patch);
+    try { await syncDirectory(m); }
+    catch (err) { console.error(err); flash('තොරතුරු සුරැකුණි, නමුත් පොදු ලැයිස්තුව යාවත්කාලීන කළ නොහැකි විය\n' + why(err), true); }
+    $('dlg').close(); repaint(); renderMembers();
+    flash('සුරකින ලදී.');
+  } catch (err) {
+    console.error(err);
+    em.textContent = 'සුරැකීමට නොහැකි විය\n' + why(err); em.hidden = false;
+  } finally { btn.disabled = false; btn.textContent = 'සුරකින්න'; }
+};
+
+/* ---------- navigation / filters ---------- */
+$('t-summary').onclick = () => tab('summary');
+$('t-requests').onclick = () => tab('requests');
+$('t-members').onclick = () => tab('members');
+$('refresh').onclick = loadAll;
+
+document.querySelectorAll('[data-rf]').forEach(b => b.onclick = () => { reqF = b.dataset.rf; syncChips('rf', reqF); renderRequests(); });
+document.querySelectorAll('[data-mf]').forEach(b => b.onclick = () => { memF = b.dataset.mf; syncChips('mf', memF); renderMembers(); });
+$('req-q').addEventListener('input', renderRequests);
+$('mem-q').addEventListener('input', renderMembers);
+
+const goReq = f => () => { reqF = f; syncChips('rf', f); renderRequests(); tab('requests'); };
+const goMem = f => () => { memF = f; syncChips('mf', f); renderMembers(); tab('members'); };
+$('go-new').onclick = goReq('new'); $('go-progress').onclick = goReq('progress'); $('go-done').onclick = goReq('done');
+$('go-all').onclick = goMem('all'); $('go-diamond').onclick = goMem('diamond');
+$('go-gold').onclick = goMem('gold'); $('go-silver').onclick = goMem('silver');
+
+/* ---------- auth ---------- */
+const loginMsg = t => { const m = $('login-msg'); m.textContent = t || ''; m.hidden = !t; };
+const AUTH_ERR = {
+  'auth/unauthorized-domain': 'මෙම domain එක Firebase > Authentication > Settings > Authorized domains හි එක් කර නැත.',
+  'auth/operation-not-allowed': 'Firebase > Authentication > Sign-in method හි Google සක්‍රීය කර නැත.',
+  'auth/network-request-failed': 'අන්තර්ජාල සම්බන්ධතාව පරීක්ෂා කරන්න.'
+};
+
+$('login').onclick = async () => {
+  loginMsg('');
+  try { await signInWithPopup(auth, provider); }
+  catch (err) {
+    if (err.code === 'auth/popup-blocked' || err.code === 'auth/operation-not-supported-in-this-environment') {
+      try { return await signInWithRedirect(auth, provider); } catch (e2) { err = e2; }
+    }
+    if (err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request') return;
+    console.error(err);
+    loginMsg('පිවිසීමට නොහැකි විය.\n' + (AUTH_ERR[err.code] || 'නැවත උත්සාහ කරන්න.') + '\n(' + (err.code || err.message) + ')');
+  }
+};
+getRedirectResult(auth).catch(err => { console.error(err); loginMsg('පිවිසීමට නොහැකි විය.\n(' + (err.code || err.message) + ')'); });
+$('logout').onclick = () => signOut(auth);
+$('logout2').onclick = () => signOut(auth);
+$('copy-uid').onclick = async () => {
+  try { await navigator.clipboard.writeText($('d-uid').textContent); flash('UID පිටපත් කරන ලදී.'); }
+  catch (e) { flash('UID එක තෝරා අතින් පිටපත් කරන්න.', true); }
+};
+
+if (!configured) { show('s-login'); loginMsg('firebase.js හි Firebase config පුරවා නැත.'); }
+
+onAuthStateChanged(auth, async u => {
+  user = u;
+  if (!u) { requests = []; members = []; show('s-login'); return; }
+  $('u-name').textContent = u.displayName || u.email || '';
+  const img = $('u-img');
+  img.hidden = !u.photoURL;
+  if (u.photoURL) img.src = u.photoURL;
+
+  show('s-check');
+  let isAdmin = false;
+  try {
+    isAdmin = (await getDoc(doc(db, 'admins', u.uid))).exists();
+  } catch (e) {
+    console.error(e);
+    show('s-login'); loginMsg('අවසරය පරීක්ෂා කළ නොහැකි විය\n' + why(e));
+    return;
+  }
+  if (user !== u) return;
+  if (!isAdmin) { $('d-uid').textContent = u.uid; show('s-denied'); return; }
+  show('s-app'); tab('summary');
+  await loadAll();
+});
+</script>
+</body>
+</html>
