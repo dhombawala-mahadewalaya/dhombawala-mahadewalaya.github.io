@@ -1,0 +1,77 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // =========================
+    // MEMBERS
+    // =========================
+    match /members/{userId} {
+
+      // User can read only their own member record.
+      allow read: if request.auth != null
+                  && request.auth.uid == userId;
+
+      // The document ID and stored uid must both be the logged-in UID.
+      allow create: if request.auth != null
+                    && request.auth.uid == userId
+                    && request.resource.data.uid == request.auth.uid;
+
+      // Prevent changing the uid to another user's UID.
+      allow update: if request.auth != null
+                    && request.auth.uid == userId
+                    && request.resource.data.uid == request.auth.uid
+                    && resource.data.uid == request.auth.uid;
+
+      allow delete: if request.auth != null
+                    && request.auth.uid == userId;
+    }
+
+    // =========================
+    // PUBLIC MEMBER DIRECTORY
+    // =========================
+    match /directory/{userId} {
+      allow read: if true;
+
+      allow create, update, delete:
+        if request.auth != null
+        && request.auth.uid == userId;
+    }
+
+    // =========================
+    // SERVICE REQUESTS
+    // =========================
+    match /requests/{requestId} {
+      allow create: if request.auth != null
+                    && request.resource.data.uid == request.auth.uid;
+
+      allow read: if request.auth != null
+                  && resource.data.uid == request.auth.uid;
+
+      allow read, update, delete:
+        if request.auth != null
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // =========================
+    // ANNOUNCEMENTS
+    // =========================
+    match /announcements/{announcementId} {
+      allow read: if request.auth != null;
+
+      allow create, update, delete:
+        if request.auth != null
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // =========================
+    // ADMINS
+    // =========================
+    match /admins/{adminId} {
+      allow read: if request.auth != null
+                  && request.auth.uid == adminId;
+
+      allow create, update, delete: if false;
+    }
+  }
+}

@@ -1,6 +1,22 @@
-<!doctype html><html lang="si"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>දොඹවල තුන්බෝ පිහිටි මැදමල්අල්ලි මහා දේවාලය</title><link rel="stylesheet" href="index.css"></head><body><nav class="navbar" id="navbar"><div class="nav-inner">
+<!doctype html><html lang="si"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>දොඹවල තුන්බෝ පිහිටි මැදමල්අල්ලි මහා දේවාලය</title><link rel="stylesheet" href="index.css"><style>
+/* ===== Popup banner ===== */
+.promo-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.72);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+.promo-overlay.show{opacity:1;visibility:visible}
+.promo-box{position:relative;line-height:0;transform:translateY(20px) scale(.96);transition:transform .35s}
+.promo-overlay.show .promo-box{transform:none}
+.promo-box img{display:block;width:auto;height:auto;max-width:min(92vw,460px);max-height:82vh;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.55)}
+.promo-close{position:absolute;top:-14px;right:-14px;width:38px;height:38px;border:0;border-radius:50%;background:#fff;color:#7a1010;font-size:24px;line-height:38px;text-align:center;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);z-index:2}
+@media(max-width:480px){.promo-close{top:-10px;right:-6px}}
+/* ===== Wide rectangle banner ===== */
+.wide-banner-wrap{max-width:1200px;margin:10px auto 30px;padding:0 16px}
+.wide-banner-link{display:block;line-height:0;border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(90,10,10,.28);transition:transform .25s,box-shadow .25s}
+.wide-banner-link:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(90,10,10,.38)}
+.wide-banner-img{display:block;width:100%;height:auto}
+@media(max-width:600px){.wide-banner-wrap{padding:0 10px}.wide-banner-link{border-radius:12px}}
+</style>
+</head><body><nav class="navbar" id="navbar"><div class="nav-inner">
 <a href="./" class="logo"><span class="logo-mark">ॐ</span><span style="color:inherit">දොඹවල තුන්බෝ පිහිටි <em style="color:var(--red);font-style:normal">මැදමල්අල්ලි මහා දේවාලය</em></span></a>
-<div class="nav-links" id="navLinks"><a href="./" class="active">මුල් පිටුව</a><a href="video/" class="">වීඩියෝ</a><a href="photo/" class="">ඡායාරූප</a><a href="blogs/" class="">බ්ලොග්</a><a href="contact/" class="">සම්බන්ධතා</a></div>
+<div class="nav-links" id="navLinks"><a href="./" class="active">මුල් පිටුව</a><a href="video/" class="">වීඩියෝ</a><a href="photo/" class="">ඡායාරූප</a><a href="blogs/" class="">බ්ලොග්</a><a href="member/" class="">සාමාජික</a><a href="contact/" class="">සම්බන්ධතා</a></div>
 <a href="contact/" class="nav-cta">අප අමතන්න</a><button class="nav-toggle" id="navToggle" aria-expanded="false">☰</button></div></nav>
 <header class="hero" style="background-image:url('Gemini_Generated_Image_elify4elify4elif.jpg')"><div class="hero-inner reveal">
 <img class="hero-logo" src="floting_text.png" alt="දොඹවල තුන්බෝ පිහිටි මැදමල්අල්ලි මහා දේවාලය">
@@ -13,7 +29,8 @@
 </div></section>
 <section class="custodian"><div class="custodian-inner"><div class="custodian-image reveal"><img src="Kapumahatha.png" alt="භාරකරු"></div><div class="custodian-text reveal"><span class="badge">භාරකරු</span><h2>ප්‍රධාන භාරකරු හා දේවාලයේ නීත්‍යානුකූල හිමිකරු</h2><p>අභාවප්‍රාප්ත එල්. ඩබ්ලිව්. පියසේන කපුමහතාට අයත්ව තිබූ, දොඹවල තුන්බෝ පිහිටි මැදමල්අල්ලි මහා දේවාලය සහ ඊට අයත් සියලුම අයිතිවාසිකම්, එතුමාගේ වියෝවෙන් පසු නීත්‍යානුකූලව එතුමාගේ මුනුබුරු කේ. ආර්. ප්‍රියංකර ප්‍රදීප් මහතා වෙත පවරා ඇත. ඒ අනුව, මින් ඉදිරියට දේවාලයේ සියලුම කටයුතු සහ පරිපාලන වගකීම් එතුමා විසින් මෙහෙයවනු ලබන බව බැතිමතුන් වෙත කාරුණිකව දන්වා සිටිමු.</p></div></div></section>
 <main class="section" id="about"><div class="section-head"><div><span class="eyebrow">අපගේ දේවාලය</span><h2>භක්තිය, සම්ප්‍රදාය සහ උරුමය</h2></div><p class="section-sub">දේවාලයේ ඉතිහාසය, ගම්පහ ප්‍රදේශය තුල කිසිදු දේවාලයකට හිමිකම් නොමැති රජ්‍ය අනුග්‍රහයෙන් ජනාදිපති කාර්යාලයේ අවසරයලත් තඹ  පත්‍රයකින් හා අත්සනින් අනුමැතිය ලත් එකම දේවාලය වන අතර මෙම දේවලය අසල තිබූ තඹ සන්නසක්ද ජාතික කෞතුකාගාරයේ සුරක්ෂිතව තැම්පත් කර ඇත .</p></div>
-<div class="cards"><article class="card"><div class="icon">✦</div><h3>දේවාල ඉතිහාසය</h3><p>ඔබට අවශ්‍ය ඉතිහාස තොරතුරු සහ සම්ප්‍රදායන් මෙතැනින් ඉදිරිපත් කළ හැක.</p></article><article class="card"><div class="icon">☸</div><h3>පූජා හා මංගල්‍ය</h3><p>වාර්ෂික පූජා, පෙරහැර සහ විශේෂ ආගමික අවස්ථා පිළිබඳ තොරතුරු.</p></article><article class="card"><div class="icon">♢</div><h3>බැතිමතුන් සඳහා</h3><p>විවෘත වේලාවන්, ස්ථානය සහ සම්බන්ධතා පහසුවෙන් සොයාගන්න.</p></article></div></main>
+<div class="cards"><article class="card"><div class="icon">✦</div><h3>දේවාල ඉතිහාසය</h3><p>මෙම දේවාලය පොදු ස්ථානයක් නොවන අතර පරම්පරවෙන් ඔප්පු ප්‍රකාරව උරුම වූ පෞද්ගලික ස්ථානයකි .. එලෙස උවද මෙම ස්ථානයේ තිබෙන පාරම්පරික වටිනාකම නිසාවෙන් ජනතාවට පුද පුජා පැවැත්වීමට අවස්ථාව සැමට සලසා දී තිබේ..</p></article><article class="card"><div class="icon">☸</div><h3>පූජා හා මංගල්‍ය</h3><p>ජනතාවට පුද පුජා පැවැත්වීමට අවසර ඇතත් දේපල හානි , මෙම ස්ථානයේ අනාචාරයේ හැසිරීම සපුරා තහනම් වන අතර ,එවැනි දේ සිදුකරන පුද්ගලයන් නීතිමගින් කටයුතු කරනු ඇත. </p></article><article class="card"><div class="icon">♢</div><h3>බැතිමතුන් සඳහා</h3><p>විවෘත වේලාවන්, ස්ථානය සහ සම්බන්ධතා පහසුවෙන් සොයාගන්න.</p></article></div></main>
+<section class="wide-banner-wrap"><a class="wide-banner-link reveal" href="https://wa.me/94743949099" target="_blank" rel="noopener" aria-label="WhatsApp මගින් අප අමතන්න"><img class="wide-banner-img" src="banner-wide.webp?v=1" width="2172" height="724" alt="දොඹවල තුන්බෝ පිහිටි මැදමල්අල්ලි මහා දේවාලය" loading="lazy" onerror="this.closest('.wide-banner-wrap').style.display='none'"></a></section>
 <section class="section" style="padding-top:10px"><div class="section-head"><div><span class="eyebrow">දර්ශන වේලාවන්</span><h2>විවෘත වේලාවන්</h2></div><a class="btn btn-whatsapp" href="https://wa.me/94743949099" target="_blank" rel="noopener"><img src="whatsapp.webp" alt="WhatsApp" class="wa-icon"> WhatsApp මගින් වෙලාවක් වෙන් කරගැනීමට</a></div><div class="hours-grid"><div class="hour-card"><div class="icon">◷</div><h3>සඳුදා – සිකුරාදා</h3><p class="time">උදෑ 8.00 – සවස 6.00</p></div><div class="hour-card"><div class="icon">◷</div><h3>සෙනසුරාදා – ඉරිදා</h3><p class="time">උදෑ 6.00 – රාත්‍රී 7.00</p></div><div class="hour-card"><div class="icon">☾</div><h3>පොහෝ දිනවල</h3><p class="time">විශේෂ වේලාවන් අනුව</p></div></div></section>
 <footer><div class="footer-inner">
 <p class="footer-title">දොඹවල තුන්බෝ පිහිටි මැදමල්අල්ලි මහා දේවාලය</p>
@@ -24,8 +41,26 @@
 <a href="#" target="_blank" rel="noopener" aria-label="Instagram" class="social-btn"><img src="insta.webp" alt="Instagram"></a>
 </div>
 <p>© 2026 මැදමල්අල්ලි මහා දේවාලය · සියලුම හිමිකම් ඇවිරිණි.</p></div></footer>
-<div class="mobile-bottom"><a href="./" class="active"><b>⌂</b>මුල් පිටුව</a><a href="video/" class=""><b>▶</b>වීඩියෝ</a><a href="photo/" class=""><b>▣</b>ඡායාරූප</a><a href="blogs/" class=""><b>✦</b>බ්ලොග්</a><a href="contact/" class=""><b>⌖</b>සම්බන්ධතා</a></div><script>
+<div class="promo-overlay" id="promoPopup" role="dialog" aria-modal="true" aria-label="දැන්වීම"><div class="promo-box"><button type="button" class="promo-close" id="promoClose" aria-label="වසන්න">&times;</button><a href="https://wa.me/94743949099" target="_blank" rel="noopener"><img id="promoImg" alt="මැදමල්අල්ලි මහා දේවාලය"></a></div></div>
+<div class="mobile-bottom"><a href="./" class="active"><b>⌂</b>මුල් පිටුව</a><a href="video/" class=""><b>▶</b>වීඩියෝ</a><a href="photo/" class=""><b>▣</b>ඡායාරූප</a><a href="blogs/" class=""><b>✦</b>බ්ලොග්</a><a href="member/" class=""><b>☺</b>සාමාජික</a><a href="contact/" class=""><b>⌖</b>සම්බන්ධතා</a></div><script>
 const nav=document.getElementById('navbar'),toggle=document.getElementById('navToggle');
 toggle.addEventListener('click',()=>{const open=nav.classList.toggle('menu-open');toggle.setAttribute('aria-expanded',open)});
 document.getElementById('navLinks').addEventListener('click',e=>{if(e.target.tagName==='A')nav.classList.remove('menu-open')});
-</script></body></html>
+</script><script type="module" src="./auth-nav.js"></script><script>
+/* Popup banner settings */
+const BANNER_SRC='banner.webp';   // server එකේ index.html තියෙන folder එකේම
+const BANNER_VERSION='1';         // image එක වෙනස් කලාම මේක 2, 3... කරන්න (cache clear වෙන්න)
+const SHOW_ONCE_PER_SESSION=false; // true = එක tab session එකකට එක පාරයි පෙන්නන්නේ
+(function(){
+  const pop=document.getElementById('promoPopup'),img=document.getElementById('promoImg');
+  try{if(SHOW_ONCE_PER_SESSION&&sessionStorage.getItem('promoSeen'))return}catch(e){}
+  const close=()=>{pop.classList.remove('show');try{sessionStorage.setItem('promoSeen','1')}catch(e){}};
+  img.onload=()=>setTimeout(()=>pop.classList.add('show'),600);
+  img.onerror=()=>{pop.style.display='none'};
+  img.src=BANNER_SRC+'?v='+BANNER_VERSION;
+  document.getElementById('promoClose').addEventListener('click',close);
+  pop.addEventListener('click',e=>{if(e.target===pop)close()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+})();
+</script>
+</body></html>
